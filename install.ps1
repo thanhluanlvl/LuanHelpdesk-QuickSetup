@@ -11,7 +11,7 @@ Bao gồm:
  5. Tải & Cài đặt Adobe Acrobat Reader DC (Offline silent).
  6. Tải & Cài đặt UltraViewer (Hỗ trợ từ xa dự phòng).
  7. Tải & Cài đặt Microsoft Office 2021 ProPlus LTSC 64-bit (Word, Excel, PowerPoint, Outlook).
- 8. Kích hoạt bản quyền Microsoft Office 2021 qua máy chủ KMS.
+ 8. Kích hoạt bản quyền Microsoft Office 2021 & Windows qua máy chủ KMS.
  9. Dọn dẹp triệt để các shortcut trùng lặp trên Desktop.
 =============================================================================================
 #>
@@ -262,7 +262,7 @@ if ($vbs) {
     }
     cscript //nologo $vbs /remhst | Out-Null
     cscript //nologo $vbs /inpkey:FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH | Out-Null
-    
+        
     $servers = @("kms8.msguides.com", "kms9.msguides.com", "kms.lotro.cc", "kms.digiboy.ir")
     foreach ($srv in $servers) {
         cscript //nologo $vbs /sethst:$srv | Out-Null
@@ -273,6 +273,32 @@ if ($vbs) {
         }
     }
 }
+
+# -------------------------------------------------------------------------------------------
+# 8. KÍCH HOẠT BẢN QUYỀN WINDOWS (KMS / DIGITAL LICENSE)
+# -------------------------------------------------------------------------------------------
+Write-Host "`n[8/9] Dang kiem tra va kich hoat ban quyen Windows..." -ForegroundColor Yellow
+try {
+    $winStatus = (Get-CimInstance SoftwareLicensingProduct | Where-Object { $_.PartialProductKey -and $_.Name -match "Windows" } | Select-Object -First 1).LicenseStatus
+    if ($winStatus -eq 1) {
+        Write-Host "[OK] Windows da duoc kich hoat ban quyen hop le tu truoc (Licensed)." -ForegroundColor Green
+    } else {
+        Write-Host "  -> Dang ket noi may chu KMS de kich hoat Windows..." -ForegroundColor Gray
+        $servers = @("kms8.msguides.com", "kms9.msguides.com", "kms.lotro.cc", "kms.digiboy.ir")
+        foreach ($srv in $servers) {
+            cscript //nologo C:\Windows\System32\slmgr.vbs /skms $srv | Out-Null
+            cscript //nologo C:\Windows\System32\slmgr.vbs /ato | Out-Null
+            $statusCheck = (Get-CimInstance SoftwareLicensingProduct | Where-Object { $_.PartialProductKey -and $_.Name -match "Windows" } | Select-Object -First 1).LicenseStatus
+            if ($statusCheck -eq 1) {
+                Write-Host "[OK] Kich hoat ban quyen Windows thanh cong tren KMS $srv!" -ForegroundColor Green
+                break
+            }
+        }
+    }
+} catch {
+    Write-Host "[WARN] Khong the kiem tra trang thai ban quyen Windows: $_" -ForegroundColor Yellow
+}
+
 
 # Tạo shortcut Office trên Public Desktop
 $appPaths = @{
@@ -292,9 +318,9 @@ foreach ($entry in $appPaths.GetEnumerator()) {
 Write-Host "[OK] Da tao shortcuts Office (Word, Excel, PowerPoint)." -ForegroundColor Green
 
 # -------------------------------------------------------------------------------------------
-# 8. DỌN DẸP SHORTCUT TRÙNG LẶP & LÀM MỚI DESKTOP
+# 9. DỌN DẸP SHORTCUT TRÙNG LẶP & LÀM MỚI DESKTOP
 # -------------------------------------------------------------------------------------------
-Write-Host "`n[8/8] Dang don dep shortcut trung lap & lam moi Explorer..." -ForegroundColor Yellow
+Write-Host "`n[9/9] Dang don dep shortcut trung lap & lam moi Explorer..." -ForegroundColor Yellow
 $publicShortcuts = Get-ChildItem $publicDesktop -Filter "*.lnk" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
 foreach ($name in $publicShortcuts) {
     $userLnk = Join-Path $userDesktop $name
