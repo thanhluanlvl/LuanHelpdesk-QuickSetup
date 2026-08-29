@@ -1,22 +1,26 @@
-# HỆ THỐNG IT HELPDESK CỦA LUÂN - QUICK SETUP ALL-IN-ONE
+# HỆ THỐNG IT HELPDESK CỦA LUÂN - QUICK SETUP & ACTIVATION
 > Hotline hỗ trợ kỹ thuật 24/7: **0966.228.133**
-
-Bộ script tự động cài đặt trọn gói phần mềm cho máy tính mới cài Windows hoặc cài đặt chuẩn văn phòng.
 
 ---
 
-## ⚡ Hướng dẫn chạy nhanh 1 dòng lệnh (One-liner)
+## ⚡ 1. Cài đặt trọn bộ phần mềm máy mới (All-in-One Setup)
 
-Mở **PowerShell (Run as Administrator)** trên máy tính cần cài đặt và dán dòng lệnh sau:
+Cài đặt đầy đủ: Chrome, UniKey, Adobe Reader, UltraViewer, Office 2021 + Kích hoạt Windows & Office, bật icon Desktop.
 
-### Cách 1 (Dùng link thương hiệu siêu ngắn - Khuyên dùng):
+Mở **PowerShell (Run as Administrator)** và chạy:
 ```powershell
 irm https://tinyurl.com/luanhelpdesk | iex
 ```
 
-### Cách 2 (Dùng link Raw GitHub chính thức):
+---
+
+## ⚡ 2. Kích hoạt nhanh bản quyền Windows & Office (Quick Activation)
+
+Chỉ kiểm tra và kích hoạt bản quyền Windows + Microsoft Office qua máy chủ KMS (không cài thêm phần mềm).
+
+Mở **PowerShell (Run as Administrator)** và chạy:
 ```powershell
-irm https://raw.githubusercontent.com/thanhluanlvl/LuanHelpdesk-QuickSetup/main/install.ps1 | iex
+irm https://tinyurl.com/luanactive | iex
 ```
 
 ---
@@ -33,4 +37,5 @@ irm https://raw.githubusercontent.com/thanhluanlvl/LuanHelpdesk-QuickSetup/main/
 7. **Microsoft Office 2021 ProPlus LTSC Volume (64-bit):**
    - Cài đặt đầy đủ: **Word, Excel, PowerPoint, Outlook**.
    - Tự động kích hoạt bản quyền qua máy chủ KMS (`LICENSED`).
-8. **Chống trùng lặp Shortcut:** Chỉ tạo 1 biểu tượng duy nhất trên `Public Desktop` và tự động quét xóa các shortcut trùng tên ở Desktop cá nhân.
+8. **Kích hoạt bản quyền Windows:** Tự động kết nối máy chủ KMS kích hoạt bản quyền Windows.
+9. **Chống trùng lặp Shortcut:** Chỉ tạo 1 biểu tượng duy nhất trên `Public Desktop` và tự động quét xóa các shortcut trùng tên ở Desktop cá nhân.
