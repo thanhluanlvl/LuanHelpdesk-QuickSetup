@@ -9,9 +9,9 @@ Bộ script tự động cài đặt trọn gói phần mềm cho máy tính m�
 
 Mở **PowerShell (Run as Administrator)** trên máy tính cần cài đặt và dán dòng lệnh sau:
 
-### Cách 1 (Dùng link TinyURL siêu ngắn):
+### Cách 1 (Dùng link thương hiệu siêu ngắn - Khuyên dùng):
 ```powershell
-irm https://tinyurl.com/2b8hjelh | iex
+irm https://tinyurl.com/luanhelpdesk | iex
 ```
 
 ### Cách 2 (Dùng link Raw GitHub chính thức):
